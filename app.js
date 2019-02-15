@@ -10,6 +10,12 @@ const server = require('http').Server(app);
 // database connection
 require("./database/mongoConnection");
 
+// Socket.io setup backend for incoming socket connections!
+const io = require("socket.io")(server);
+io.on("connection", (server) => {
+  console.log("🔌 New user connected! 🔌")
+})
+
 // Template Engine setup
 app.engine('hbs', hbs({
   extname: 'hbs',
