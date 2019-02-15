@@ -3,6 +3,8 @@ $(document).ready(() => {
   const socket = io.connect();
   // keep track of current user
   let currentUser;
+  // get the online users from the server
+  socket.emit('get online users');
   $('#createUserBtn').click((e) => {
     e.preventDefault();
     let username = $('#usernameInput').val();
@@ -47,6 +49,21 @@ $(document).ready(() => {
         <p class="messageText">${data.message}</p>
       </div>
     `);
-  })
+  });
 
-})
+  socket.on('get online users', (onlineUsers) => {
+    // for (key in obj)
+    for (username in onlineUsers) {
+      $('.userOnline').append(`<p class="userOnline">${username}</p>`);
+    };
+  });
+
+//Refresh the online user list
+socket.on('user has left', (onlineUsers) => {
+  $('.usersOnline').empty();
+  for (username in onlineUsers) {
+    $('.usersOnline').append(`<p>${username}</p>`);
+  }
+});
+
+});
