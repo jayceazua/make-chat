@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // Set a Mongoose Promise Library
 mongoose.Promise = global.Promise;
-const dbURI = process.env.MONGODB_URI || ``;
+const dbURI = process.env.MONGODB_URI || `mongodb://localhost/make-chat-azua`;
 mongoose.connect(dbURI, {
   useNewUrlParser: true
 });
