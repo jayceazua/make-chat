@@ -12,8 +12,10 @@ const server = require('http').Server(app);
 
 // Socket.io setup backend for incoming socket connections!
 const io = require("socket.io")(server);
-io.on("connection", (server) => {
-  console.log("🔌 New user connected! 🔌")
+io.on("connection", (socket) => {
+  // This file will be read on new socket connections
+  // console.log("🔌 New user connected! 🔌")
+  require('./sockets/chat')(io, socket);
 });
 
 app.engine('hbs', hbs({
