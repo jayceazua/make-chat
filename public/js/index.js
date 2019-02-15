@@ -57,13 +57,23 @@ $(document).ready(() => {
       $('.userOnline').append(`<p class="userOnline">${username}</p>`);
     };
   });
+  
+  //Refresh the online user list
+  socket.on('user has left', (onlineUsers) => {
+    $('.usersOnline').empty();
+    for (username in onlineUsers) {
+      $('.usersOnline').append(`<p>${username}</p>`);
+    }
+  });
 
-//Refresh the online user list
-socket.on('user has left', (onlineUsers) => {
-  $('.usersOnline').empty();
-  for (username in onlineUsers) {
-    $('.usersOnline').append(`<p>${username}</p>`);
-  }
-});
+  $('#newChannelBtn').click(() => {
+    let newChannel = $('#newChannelInput').val();
+
+    if (newChannel.length > 0) {
+      // Emit the new channel to the server
+      socket.emit('new channel', newChannel);
+      $('#newChannelInput').val("");
+    }
+  })
 
 });
