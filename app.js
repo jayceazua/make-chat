@@ -14,10 +14,12 @@ const server = require('http').Server(app);
 const io = require("socket.io")(server);
 // we'll store our online users here
 let onlineUsers = {}
+//Save the channels in this object.
+let channels = {"General": []};
 io.on("connection", (socket) => {
   // This file will be read on new socket connections
   // console.log("🔌 New user connected! 🔌")
-  require('./sockets/chat')(io, socket, onlineUsers);
+  require('./sockets/chat')(io, socket, onlineUsers, channels);
 });
 
 app.engine('hbs', hbs({
