@@ -9,16 +9,15 @@ const server = require('http').Server(app);
 
 // database connection
 // require("./database/mongoConnection");
-
-// Socket.io setup backend for incoming socket connections!
-const io = require("socket.io")(server);
 // we'll store our online users here
 let onlineUsers = {}
+// Socket.io setup backend for incoming socket connections!
+const io = require("socket.io")(server);
 //Save the channels in this object.
 let channels = {"General": []};
 io.on("connection", (socket) => {
   // This file will be read on new socket connections
-  // console.log("🔌 New user connected! 🔌")
+  console.log("🔌 New user connected! 🔌");
   require('./sockets/chat')(io, socket, onlineUsers, channels);
 });
 

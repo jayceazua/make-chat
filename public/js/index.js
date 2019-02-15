@@ -36,9 +36,9 @@ $(document).ready(() => {
     if (message.length > 0) {
       socket.emit('new message', {
         sender: currentUser,
-        message: message,
+        message,
         //Send the channel over to the server
-        channel: channel
+        channel
       });
       $('#chatInput').val("");
     }
